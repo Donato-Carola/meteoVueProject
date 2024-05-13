@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
-          <h1 class="text-uppercase">Weather</h1>
+          <h1 class="text-uppercase ">Weather</h1>
 
           <form @submit.prevent="searchWeather">
             <div class="input-group">
@@ -19,6 +19,7 @@
         </div>
       </div>
       <div class="container">
+        <h1 class="current">Previsione attuale</h1>
          {{ current.text }}
          {{ location.name }}
         
@@ -73,4 +74,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+h1{
+  color: aqua;
+}
+
+h1.current{
+  color: aquamarine;
+}
+</style>
