@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
-          <h1 class="text-uppercase ">Weather</h1>
+          <h1 class="text-uppercase">Weather</h1>
 
           <form @submit.prevent="searchWeather">
             <div class="input-group">
@@ -18,11 +18,20 @@
           </form>
         </div>
       </div>
-      <div class="container">
-        <h1 class="current">Previsione attuale</h1>
-         {{ current.text }}
-         {{ location.name }}
-        
+      <div class="container pt-3">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="current">Previsione attuale</h1>
+
+            <div class="card">
+              <div>
+                <img v-if="currentWeatherIcon" class="card-img-top" :src="currentWeatherIcon" alt="Weather Icon">
+              </div>
+              {{ current.text }}
+              {{ location.name }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,6 +47,14 @@ export default {
       location: [],
       current: [],
       cityInput: "Rome", // Default city
+      weatherIcons: {
+        'Sunny': 'https://cdn.weatherapi.com/weather/64x64/day/113.png',
+        'Clear': 'https://cdn.weatherapi.com/weather/64x64/night/113.png',
+        'Partly cloudy': 'https://cdn.weatherapi.com/weather/64x64/day/116.png',
+        'Cloudy': 'https://www.example.com/cloudy.jpg',
+        // Aggiungi altri mapping per altre condizioni meteo
+      },
+      currentWeatherIcon: null,
     };
   },
   methods: {
@@ -53,6 +70,12 @@ export default {
           // Assegnamento della risposta all'oggetto previsioni
           this.location = response.data.location;
           this.current = response.data.current.condition;
+          if (response.data.current.condition.text in this.weatherIcons) {
+            this.currentWeatherIcon = this.weatherIcons[response.data.current.condition.text];
+          } else {
+            // Se non c'è un'icona corrispondente, puoi gestire un'icona di default o un messaggio di errore
+            this.currentWeatherIcon = 'https://www.example.com/default.jpg';
+          }
         })
         .catch((error) => {
           console.warn(error);
@@ -75,12 +98,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-h1{
+h1 {
   color: aqua;
 }
 
-h1.current{
+h1.current {
   color: aquamarine;
 }
 </style>

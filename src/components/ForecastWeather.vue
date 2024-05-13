@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-5">
       <h2>Previsioni meteo a lungo termine per {{ city }}</h2>
       
         <div v-for="day in forecast" :key="day.date">
