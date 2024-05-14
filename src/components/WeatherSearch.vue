@@ -1,41 +1,40 @@
 <template>
   <div class="container">
-    
-      
-        <div class="d-md-flex d-sm-inline-block justify-content-between align-items-center">
-          <h1 class="text-uppercase">Weather</h1>
+    <div
+      class="d-md-flex d-sm-inline-block justify-content-between align-items-center"
+    >
+      <h1 class="text-uppercase">Weather</h1>
 
-          <form @submit.prevent="searchWeather" >
-            <div class="input-group">
-              <input
-                v-model="cityInput"
-                type="text"
-                class="form-control"
-                placeholder="Enter city"
-              />
-              <button class="btn btn-primary" type="submit">Search</button>
-            </div>
-          </form>
+      <form @submit.prevent="searchWeather">
+        <div class="input-group">
+          <input
+            v-model="cityInput"
+            type="text"
+            class="form-control"
+            placeholder="Enter city"
+          />
+          <button class="btn btn-primary" type="submit">Search</button>
         </div>
-     
+      </form>
+    </div>
 
+    <div class="container pt-3">
+      <div class="text-center">
+        <h1 class="current">Previsione attuale</h1>
 
-      <div class="container pt-3">
-       
-          <div class="text-center">
-            <h1 class="current">Previsione attuale</h1>
-
-            <div class="card">
-              <div>
-                <img v-if="currentWeatherIcon" class="card-img-top container w-25" :src="currentWeatherIcon" alt="Weather Icon">
-              </div>
-         <h1>{{ location.name }}</h1>
-              
-            </div>
+        <div class="card">
+          <div>
+            <img
+              v-if="currentWeatherIcon"
+              class="card-img-top container w-25"
+              :src="currentWeatherIcon"
+              alt="Weather Icon"
+            />
           </div>
-        
+          <h1>{{ location.name }}</h1>
+        </div>
       </div>
-
+    </div>
   </div>
 </template>
 
@@ -68,10 +67,11 @@ export default {
           this.location = response.data.location;
           this.current = response.data.current.condition;
           if (response.data.current.condition.text in this.weatherIcons) {
-            this.currentWeatherIcon = this.weatherIcons[response.data.current.condition.text];
+            this.currentWeatherIcon =
+              this.weatherIcons[response.data.current.condition.text];
           } else {
             // Se non c'è un'icona corrispondente, puoi gestire un'icona di default o un messaggio di errore
-            this.currentWeatherIcon = 'https://www.example.com/default.jpg';
+            this.currentWeatherIcon = "https://www.example.com/default.jpg";
           }
           this.$emit("city-changed", this.cityInput);
         })
@@ -92,14 +92,16 @@ export default {
           if (icon.day === this.current.text) {
             // Costruisci l'URL dell'immagine utilizzando il codice dell'icona
             return `https://cdn.weatherapi.com/weather/64x64/day/${icon.icon}.png`;
+          } else if (icon.night === this.current.text) {
+            return `https://cdn.weatherapi.com/weather/64x64/night/${icon.icon}.png`;
           }
         }
       }
       // Se non c'è un'icona corrispondente nel file JSON, puoi gestire un'icona di default
-      return 'https://www.example.com/default.jpg';
-    }
+      return "https://www.example.com/default.jpg";
+    },
   },
- 
+
   mounted() {
     // Esempio di chiamata alla funzione getMeteo() con una città di esempio
     this.getMeteo(this.cityInput);
@@ -117,6 +119,4 @@ h1 {
 h1.current {
   color: aquamarine;
 }
-
-
 </style>
