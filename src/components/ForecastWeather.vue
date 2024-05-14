@@ -18,10 +18,7 @@
   
   export default {
     props: {
-      city: {
-        type: String,
-        required: true,
-      },
+      city: String
     },
     data() {
       return {

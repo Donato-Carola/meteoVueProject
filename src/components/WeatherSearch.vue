@@ -19,19 +19,19 @@
         </div>
       </div>
       <div class="container pt-3">
-        <div class="row">
-          <div class="col-12 text-center">
+       
+          <div class="text-center">
             <h1 class="current">Previsione attuale</h1>
 
             <div class="card">
               <div>
-                <img v-if="currentWeatherIcon" class="card-img-top" :src="currentWeatherIcon" alt="Weather Icon">
+                <img v-if="currentWeatherIcon" class="card-img-top container w-25" :src="currentWeatherIcon" alt="Weather Icon">
               </div>
-              {{ current.text }}
-              {{ location.name }}
+         <h1>{{ location.name }}</h1>
+              
             </div>
           </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -76,6 +76,7 @@ export default {
             // Se non c'è un'icona corrispondente, puoi gestire un'icona di default o un messaggio di errore
             this.currentWeatherIcon = 'https://www.example.com/default.jpg';
           }
+          this.$emit("city-changed", this.cityInput);
         })
         .catch((error) => {
           console.warn(error);
@@ -85,17 +86,15 @@ export default {
       this.getMeteo(this.cityInput);
     },
   },
-  watch: {
-    cityInput(newValue, oldValue) {
-      this.$emit("city-changed", newValue);
-    },
-  },
+ 
   mounted() {
     // Esempio di chiamata alla funzione getMeteo() con una città di esempio
     this.getMeteo(this.cityInput);
   },
 };
 </script>
+
+<!-- stile -->
 
 <style lang="scss" scoped>
 h1 {
@@ -105,4 +104,6 @@ h1 {
 h1.current {
   color: aquamarine;
 }
+
+
 </style>

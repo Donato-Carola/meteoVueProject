@@ -4,7 +4,7 @@
     <WeatherSearch @city-changed="updateCity" />
 
     <!-- Componente per le previsioni meteo a lungo termine -->
-    <ForecastWeather :city="cityInput" />
+    <ForecastWeather :city="cityInput" v-if="cityInput" />
   </div>
 </template>
 
