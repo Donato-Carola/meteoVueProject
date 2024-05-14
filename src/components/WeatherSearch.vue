@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
+    
+      
+        <div class="d-md-flex d-sm-inline-block justify-content-between align-items-center">
           <h1 class="text-uppercase">Weather</h1>
 
-          <form @submit.prevent="searchWeather">
+          <form @submit.prevent="searchWeather" >
             <div class="input-group">
               <input
                 v-model="cityInput"
@@ -17,7 +17,9 @@
             </div>
           </form>
         </div>
-      </div>
+     
+
+
       <div class="container pt-3">
        
           <div class="text-center">
@@ -33,12 +35,13 @@
           </div>
         
       </div>
-    </div>
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import weattherIconsData from "../data/weatherIcons.json";
 
 export default {
   data() {
@@ -47,13 +50,7 @@ export default {
       location: [],
       current: [],
       cityInput: "Rome", // Default city
-      weatherIcons: {
-        'Sunny': 'https://cdn.weatherapi.com/weather/64x64/day/113.png',
-        'Clear': 'https://cdn.weatherapi.com/weather/64x64/night/113.png',
-        'Partly cloudy': 'https://cdn.weatherapi.com/weather/64x64/day/116.png',
-        'Cloudy': 'https://www.example.com/cloudy.jpg',
-        // Aggiungi altri mapping per altre condizioni meteo
-      },
+      weatherIcons: weattherIconsData,
       currentWeatherIcon: null,
     };
   },
@@ -85,6 +82,22 @@ export default {
     searchWeather() {
       this.getMeteo(this.cityInput);
     },
+  },
+
+  computed: {
+    currentWeatherIcon() {
+      if (this.current && this.current.text) {
+        // Cerca nel file JSON l'icona corrispondente al testo delle condizioni meteorologiche
+        for (const icon of this.weatherIcons) {
+          if (icon.day === this.current.text) {
+            // Costruisci l'URL dell'immagine utilizzando il codice dell'icona
+            return `https://cdn.weatherapi.com/weather/64x64/day/${icon.icon}.png`;
+          }
+        }
+      }
+      // Se non c'è un'icona corrispondente nel file JSON, puoi gestire un'icona di default
+      return 'https://www.example.com/default.jpg';
+    }
   },
  
   mounted() {
