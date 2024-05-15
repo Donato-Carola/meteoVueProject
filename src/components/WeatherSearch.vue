@@ -40,7 +40,7 @@
 
 <script>
 import axios from "axios";
-import weattherIconsData from "../data/weatherIcons.json";
+import weatherIconsData from "../data/weatherIcons.json";
 
 export default {
   data() {
@@ -49,7 +49,7 @@ export default {
       location: [],
       current: [],
       cityInput: "Rome", // Default city
-      weatherIcons: weattherIconsData,
+      weatherIcons: weatherIconsData,
       currentWeatherIcon: null,
     };
   },
