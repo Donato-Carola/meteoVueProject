@@ -6,6 +6,7 @@
       <div class="row justify-content-center align-items-center">
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 align-self-center  " v-for="day in forecast" :key="day.date">
           <h3>{{ getDayOfWeek(day.date) }}</h3>
+          <img :src="getWeatherIcon(day.day.condition.text)" :alt="day.day.condition.text" class="weather-icon">
           <p>Massima temperatura: {{ day.day.maxtemp_c }} °C</p>
           <p>Minima temperatura: {{ day.day.mintemp_c }} °C</p>
           <!-- Aggiungi altri dettagli delle previsioni se necessario -->
@@ -13,10 +14,13 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
 import axios from "axios";
+import weatherIconsData from "../data/weatherIcons.json";
+
 
 export default {
   props: {
@@ -26,6 +30,7 @@ export default {
     return {
       APIKey: "75a109a67a35426b871104513243003",
       forecast: [],
+      weatherIcons: weatherIconsData,
     };
   },
   methods: {
@@ -40,7 +45,7 @@ export default {
           `http://api.weatherapi.com/v1/forecast.json?q=${city}&key=${this.APIKey}&days=3`
         )
         .then((response) => {
-          console.log("Forecast Data:", response.data);
+          console.log("Forecast Data:", response.data.forecast.forecastday);
           // Assegnamento della risposta all'oggetto previsioni a lungo termine
           this.forecast = response.data.forecast.forecastday;
         })
@@ -49,6 +54,20 @@ export default {
           // Puoi anche visualizzare un messaggio di errore per l'utente
         });
     },
+
+    getWeatherIcon(conditionText) {
+      const weatherIcon = this.weatherIcons.find(icon => {
+        return icon.day === conditionText || icon.night === conditionText;
+      });
+      if (weatherIcon) {
+        // Se l'icona è trovata, costruisci l'URL e restituiscilo
+        return `https://cdn.weatherapi.com/weather/64x64/day/${weatherIcon.icon}.png`;
+      } else {
+        // Se non è trovata un'icona corrispondente, restituisci l'URL di un'icona di default
+        return "https://www.example.com/default.png";
+      }
+    },
+
   },
   watch: {
     city(newCity, oldCity) {
