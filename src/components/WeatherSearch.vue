@@ -32,6 +32,7 @@
             />
           </div>
           <h1>{{ location.name }}</h1>
+          <h3>{{ data.current.temp_c}} °C</h3>
         </div>
       </div>
     </div>
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       APIKey: "75a109a67a35426b871104513243003",
+      data:[],
       location: [],
       current: [],
       cityInput: "Rome", // Default city
@@ -64,6 +66,7 @@ export default {
           console.log("Condizioni correnti", response.data.current.condition);
           console.log("Location", response.data.location);
           // Assegnamento della risposta all'oggetto previsioni
+          this.data = response.data;
           this.location = response.data.location;
           this.current = response.data.current.condition;
           if (response.data.current.condition.text in this.weatherIcons) {
