@@ -1,14 +1,15 @@
 <template>
   <div class="container pt-5">
-    <h2>Previsioni meteo nei prossimi giorni</h2>
-    <h1>{{ city }}</h1>
+    <!-- <h2>Previsioni meteo nei prossimi giorni</h2>
+    <h1>{{ city }}</h1> -->
     <div class="container pt-3">
       <div class="row justify-content-center align-items-center">
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 align-self-center  " v-for="day in forecast" :key="day.date">
           <h3>{{ getDayOfWeek(day.date) }}</h3>
           <img :src="getWeatherIcon(day.day.condition.text)" :alt="day.day.condition.text" class="weather-icon">
-          <p>Massima temperatura: {{ day.day.maxtemp_c }} °C</p>
-          <p>Minima temperatura: {{ day.day.mintemp_c }} °C</p>
+          <p>{{ day.day.condition.text }}</p>
+          <p> Max: {{ day.day.maxtemp_c }} °C</p>
+          <p> Min: {{ day.day.mintemp_c }} °C</p>
           <!-- Aggiungi altri dettagli delle previsioni se necessario -->
         </div>
       </div>
