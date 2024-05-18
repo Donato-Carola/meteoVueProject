@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my_back">
     <!-- Componente per la ricerca delle previsioni attuali -->
     <WeatherSearch @city-changed="updateCity" />
 
@@ -32,4 +32,8 @@ export default {
 
 <style lang="scss">
 @use "./style/general.scss" as *;
+
+
+
+
 </style>

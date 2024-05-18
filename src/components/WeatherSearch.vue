@@ -3,7 +3,7 @@
     <div
       class="d-md-flex d-sm-inline-block justify-content-between align-items-center"
     >
-      <h1 class="text-uppercase">Weather</h1>
+      <h1 class="text-uppercase my_title">Weather</h1>
 
       <form @submit.prevent="searchWeather">
         <div class="input-group">
@@ -13,7 +13,7 @@
             class="form-control"
             placeholder="Enter city"
           />
-          <button class="btn btn-primary" type="submit">Search</button>
+          <button class="btn " type="submit">Search</button>
         </div>
       </form>
     </div>
@@ -22,7 +22,7 @@
       <div class="text-center">
         <h1 class="current">Previsione attuale</h1>
 
-        <div class="card">
+        <div class="card my_back border-0 ">
           <div>
             <img
               v-if="currentWeatherIcon"
@@ -112,11 +112,16 @@ export default {
 <!-- stile -->
 
 <style lang="scss" scoped>
-h1 {
-  color: aqua;
+
+
+h1.current,
+.my_title{
+  color: rgb(52, 209, 157);
 }
 
-h1.current {
-  color: aquamarine;
+button{
+  background-color: rgb(103, 224, 178);
 }
+
+
 </style>
