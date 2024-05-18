@@ -32,7 +32,8 @@
             />
           </div>
           <h1>{{ location.name }}</h1>
-          <h3>{{ data.current.temp_c}} °C</h3>
+          {{ current.temp_c }}
+          <!-- <h3>{{ data.current.temp_c}} °C</h3> -->
         </div>
       </div>
     </div>
@@ -47,7 +48,7 @@ export default {
   data() {
     return {
       APIKey: "75a109a67a35426b871104513243003",
-      data:[],
+      // data:[],
       location: [],
       current: [],
       cityInput: "Rome", // Default city
@@ -68,7 +69,7 @@ export default {
           // Assegnamento della risposta all'oggetto previsioni
           this.data = response.data;
           this.location = response.data.location;
-          this.current = response.data.current.condition;
+          this.current = response.data.current;
           if (response.data.current.condition.text in this.weatherIcons) {
             this.currentWeatherIcon =
               this.weatherIcons[response.data.current.condition.text];
@@ -89,13 +90,13 @@ export default {
 
   computed: {
     currentWeatherIcon() {
-      if (this.current && this.current.text) {
+      if (this.current.condition && this.current.condition.text) {
         // Cerca nel file JSON l'icona corrispondente al testo delle condizioni meteorologiche
         for (const icon of this.weatherIcons) {
-          if (icon.day === this.current.text) {
+          if (icon.day === this.current.condition.text) {
             // Costruisci l'URL dell'immagine utilizzando il codice dell'icona
             return `https://cdn.weatherapi.com/weather/64x64/day/${icon.icon}.png`;
-          } else if (icon.night === this.current.text) {
+          } else if (icon.night === this.current.condition.text) {
             return `https://cdn.weatherapi.com/weather/64x64/night/${icon.icon}.png`;
           }
         }
