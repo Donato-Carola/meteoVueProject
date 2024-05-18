@@ -22,7 +22,7 @@
       <div class="text-center">
         <h1 class="current">Previsione attuale</h1>
 
-        <div class="card my_back border-0 ">
+        <div class="card bg-transparent border-0 ">
           <div>
             <img
               v-if="currentWeatherIcon"
@@ -32,8 +32,8 @@
             />
           </div>
           <h1>{{ location.name }}</h1>
-          {{ current.temp_c }}
-          <!-- <h3>{{ data.current.temp_c}} °C</h3> -->
+          <h3>{{ current.temp_c }} °C</h3> 
+         
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ export default {
           console.log("Condizioni correnti", response.data.current.condition);
           console.log("Location", response.data.location);
           // Assegnamento della risposta all'oggetto previsioni
-          this.data = response.data;
+        
           this.location = response.data.location;
           this.current = response.data.current;
           if (response.data.current.condition.text in this.weatherIcons) {
