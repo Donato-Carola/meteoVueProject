@@ -20,7 +20,7 @@
 
     <div class="container pt-3">
       <div class="text-center">
-        <h1 class="current">Previsione attuale</h1>
+        <h1 class="current">Current weather</h1>
 
         <div class="card bg-transparent border-0 ">
           <div>
